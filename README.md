@@ -31,18 +31,6 @@ Target: Another pair (TF2 and TM3), 81 sentences for training; 54 sentences for 
 ### Toolbox for feature extraction and waveform reconstruction: 
 [WORLD](https://github.com/mmorise/World)
 
-
-## Dependencies
-
-* Python 3.5
-* Numpy 1.14
-* TensorFlow 1.8
-* ProgressBar2 3.37.1
-* LibROSA 0.6
-* FFmpeg 4.0
-* [PyWorld](https://github.com/JeremyCCHsu/Python-Wrapper-for-World-Vocoder)
-
-
 ## Files
 
 ```
@@ -61,6 +49,17 @@ Target: Another pair (TF2 and TM3), 81 sentences for training; 54 sentences for 
 ```
 
 ## Usage
+
+### Dependencies
+
+* Python 3.5
+* Numpy 1.14
+* TensorFlow 1.8
+* ProgressBar2 3.37.1
+* LibROSA 0.6
+* FFmpeg 4.0
+* [PyWorld](https://github.com/JeremyCCHsu/Python-Wrapper-for-World-Vocoder)
+
 
 ### Download Dataset
 
