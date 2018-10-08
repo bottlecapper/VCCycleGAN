@@ -2,11 +2,31 @@
 
 ## Introduction
 
-Cycle-consistent adversarial networks (CycleGAN) has been widely used for image conversions. It turns out that it could also be used for voice conversion. This is an implementation of CycleGAN on human speech conversions. The neural network utilized 1D gated convolution neural network (Gated CNN) for generator, and 2D Gated CNN for discriminator. The model takes Mel-cepstral coefficients ([MCEPs](https://github.com/eYSIP-2017/eYSIP-2017_Speech_Spoofing_and_Verification/wiki/Feature-Extraction-for-Speech-Spoofing)) (for spectral envelop) as input for voice conversions.
+This is a tensorflow implementation of Takuhiro Kaneko's paper PARALLEL-DATA-FREE VOICE CONVERSION USING CYCLE-CONSISTENT ADVERSARIAL NETWORKS. CycleGAN is a generative model developed for unpaired image-to-image translation. It assumes the existence of a cycle-consistency mapping that an image in the source domain mapped to a target domain and mapped back will be exactly the same as the original image. 
+
+### Assumption and Loss
+1. Adversarial loss         (naturalness)
+2. Cycle-consistency loss   (speaker similarity)
+3. Identity mapping loss    (color/linguistic information preservation)
+
+### Neural Network Representation
+When applied for voice conversion, gated linear units (GLUs) are used as activation function to capture the sequential and hierarchical structures of speech.  It allows the information to be selectively propagated based on the previous layer states. The generator is 1D CNN focusing on temporal structure, and the discriminator is 2D CNN focusing on spectral texture. The model consists of the following 
 
 <p align="center">
     <img src = "./figures/teaser_high_res.png" width="100%">
 </p>
+
+### Features:
+1. Fundamental frequency (log F_0), converted by logarithm Gaussian normalized transformation
+2. Mel-cepstral coefficients (MCEPs), a representation of spectral envelope, trained by CycleGAN
+3. Aperiodicities (APs), directly used without modification
+
+### Dataset: Voice Conversion Challenge 2016
+Professional US English speakers, five females and five males,  each has 216 short sentences (~13 minutes, need manual segmentation)
+Aource: A pair of female (SF1) and male (SM1), 81 sentences for training
+Target: Another pair (TF2 and TM3), 81 sentences for training; 54 sentences for evaluation
+
+### Toolbox for feature extraction and waveform reconstruction: WORLD
 
 
 ## Dependencies
@@ -28,7 +48,6 @@ Cycle-consistent adversarial networks (CycleGAN) has been widely used for image 
 ├── demo
 ├── download.py
 ├── figures
-├── LICENSE.md
 ├── model.py
 ├── module.py
 ├── preprocess.py
