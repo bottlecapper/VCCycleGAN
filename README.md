@@ -60,6 +60,8 @@ Target: Another pair (TF2 and TM3), 81 sentences for training; 54 sentences for 
 * FFmpeg 4.0
 * [PyWorld](https://github.com/JeremyCCHsu/Python-Wrapper-for-World-Vocoder)
 
+(Issue: wrong TensorFlow version --> export PYTHONNOUSERSITE=True)
+
 
 ### Download Dataset
 
