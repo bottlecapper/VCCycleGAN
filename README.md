@@ -60,6 +60,8 @@ Target: Another pair (TF2 and TM3), 81 sentences for training; 54 sentences for 
 * FFmpeg 4.0
 * [PyWorld](https://github.com/JeremyCCHsu/Python-Wrapper-for-World-Vocoder)
 
+(Issue: wrong TensorFlow version --> export PYTHONNOUSERSITE=True)
+
 
 ### Download Dataset
 
@@ -88,7 +90,7 @@ $ python download.py --download_dir ./download --data_dir ./data --datasets vcc2
 
 ### Train Model
 
-To have a good conversion capability, the training would take at least 1000 epochs, which could take very long time even using a NVIDIA GTX TITAN X graphic card. 
+To have a good conversion quality, the training needs to take at least 1000 epochs. With a TITAN X, it takes 2 days to finish all 400K iterations. 
 
 ```bash
 $ python train.py --help
