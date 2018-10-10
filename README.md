@@ -136,7 +136,7 @@ $ python train.py --train_A_dir ./data/vcc2016_training/SF1 --train_B_dir ./data
 
 
 <p align="center">
-    <img src = "./train_log/tensorboard20181008.png" width="90%">
+    <img src = "./train_log/tensorboard20181008.png" width="100%">
 </p>
 
 In ``validation_A_dir``, ``validation_B_dir``, and ``output_dir`` set, we can listen to the converted audio files. 
