@@ -136,14 +136,10 @@ $ python train.py --train_A_dir ./data/vcc2016_training/SF1 --train_B_dir ./data
 
 
 <p align="center">
-    <img src = "./train_log/discriminator_discriminator.png" width="90%">
+    <img src = "./train_log/tensorboard20181008.png" width="90%">
 </p>
 
-<p align="center">
-    <img src = "./train_log/cycle_identity.png" width="90%">
-</p>
-
-With ``validation_A_dir``, ``validation_B_dir``, and ``output_dir`` set, we could monitor the conversion of validation voices after each epoch using our bare ear. 
+In ``validation_A_dir``, ``validation_B_dir``, and ``output_dir`` set, we can listen to the converted audio files. 
 
 
 ### Voice Conversion
