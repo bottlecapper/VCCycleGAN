@@ -22,8 +22,7 @@ When applied for voice conversion, gated linear units (GLUs) are used as activat
 3. Aperiodicities (APs), directly used without modification
 
 ### Dataset: 
-[Voice Conversion Challenge 2016](https://datashare.is.ed.ac.uk/handle/10283/2211)
-
+[Voice Conversion Challenge 2016](https://datashare.is.ed.ac.uk/handle/10283/2211) <br />
 Professional US English speakers, five females and five males,  each has 216 short sentences (~13 minutes, need manual segmentation)
 Aource: A pair of female (SF1) and male (SM1), 81 sentences for training
 Target: Another pair (TF2 and TM3), 81 sentences for training; 54 sentences for evaluation
@@ -60,8 +59,8 @@ Target: Another pair (TF2 and TM3), 81 sentences for training; 54 sentences for 
 * FFmpeg 4.0
 * [PyWorld](https://github.com/JeremyCCHsu/Python-Wrapper-for-World-Vocoder)
 
-(Issue: wrong TensorFlow version --> export PYTHONNOUSERSITE=True)
-
+(Issue: wrong TensorFlow version --> export PYTHONNOUSERSITE=True) <br />
+(Issue: wrong jupyter notebook python kernel --> Install the IPython kernel in different env)
 
 ### Download Dataset
 
@@ -89,8 +88,8 @@ $ python download.py --download_dir ./download --data_dir ./data --datasets vcc2
 ```
 
 ### Train Model
-
-To have a good conversion quality, the training needs to take at least 1000 epochs. With a TITAN X, it takes 2 days to finish all 400K iterations. 
+Data preprocessing takes about 10 mins, depends on the data size. <br />
+To have a good conversion quality, the training needs to take at least 1000 epochs. With a TITAN X, it takes 2 days to finish all 400K iterations. The learning rate is constant in iteration 0-200K and linearly drop to zero in 200K-400K. 
 
 ```bash
 $ python train.py --help
@@ -131,19 +130,15 @@ optional arguments:
 For example, to train CycleGAN model for voice conversion between ``SF1`` and ``TM1``:
 
 ```bash
-$ python train.py --train_A_dir ./data/vcc2016_training/SF1 --train_B_dir ./data/vcc2016_training/TM1 --model_dir ./model/sf1_tm1 --model_name sf1_tm1.ckpt --random_seed 0 --validation_A_dir ./data/evaluation_all/SF1 --validation_B_dir ./data/evaluation_all/TM1 --output_dir ./validation_output --tensorboard_log_dir ./log
+$ python train.py --train_A_dir /media/jg/H/data/VCC2016/vcc2016_training/SF1 --train_B_dir /media/jg/H/data/VCC2016/vcc2016_training/TM1 --model_dir ./model/sf1_tm1 --model_name sf1_tm1.ckpt --random_seed 0 --validation_A_dir /media/jg/H/data/VCC2016/evaluation_all/SF1 --validation_B_dir /media/jg/H/data/VCC2016/evaluation_all/TM1 --output_dir ./validation_output --tensorboard_log_dir ./log
 ```
 
 
 <p align="center">
-    <img src = "./train_log/discriminator_discriminator.png" width="90%">
+    <img src = "./train_log/tensorboard20181008.png" width="100%">
 </p>
 
-<p align="center">
-    <img src = "./train_log/cycle_identity.png" width="90%">
-</p>
-
-With ``validation_A_dir``, ``validation_B_dir``, and ``output_dir`` set, we could monitor the conversion of validation voices after each epoch using our bare ear. 
+We can listen to the converted audio in folder ``validation_output``, and compare with the original files in ``validation_A_dir`` and ``validation_B_dir``. 
 
 
 ### Voice Conversion
