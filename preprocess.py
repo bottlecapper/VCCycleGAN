@@ -204,33 +204,86 @@ def mfccs_normalization(mfccs):
     return mfccs_normalized, mfccs_mean, mfccs_std
 
 
-def sample_train_data(dataset_A, dataset_B, n_frames = 128):
+# def sample_train_data_old(dataset_A, dataset_B, n_frames = 128):
+#
+#     num_samples = min(len(dataset_A), len(dataset_B))
+#     train_data_A_idx = np.arange(len(dataset_A))
+#     train_data_B_idx = np.arange(len(dataset_B))
+#     np.random.shuffle(train_data_A_idx)
+#     np.random.shuffle(train_data_B_idx)
+#     train_data_A_idx_subset = train_data_A_idx[:num_samples]
+#     train_data_B_idx_subset = train_data_B_idx[:num_samples]
+#
+#     train_data_A = list()
+#     train_data_B = list()
+#
+#     for idx_A, idx_B in zip(train_data_A_idx_subset, train_data_B_idx_subset):
+#         data_A = dataset_A[idx_A]
+#         frames_A_total = data_A.shape[1]
+#         assert frames_A_total >= n_frames
+#         start_A = np.random.randint(frames_A_total - n_frames + 1)
+#         end_A = start_A + n_frames
+#         train_data_A.append(data_A[:,start_A:end_A])
+#
+#         data_B = dataset_B[idx_B]
+#         frames_B_total = data_B.shape[1]
+#         assert frames_B_total >= n_frames
+#         start_B = np.random.randint(frames_B_total - n_frames + 1)
+#         end_B = start_B + n_frames
+#         train_data_B.append(data_B[:,start_B:end_B])
+#
+#     train_data_A = np.array(train_data_A)
+#     train_data_B = np.array(train_data_B)
+#
+#     return train_data_A, train_data_B
 
-    num_samples = min(len(dataset_A), len(dataset_B))
-    train_data_A_idx = np.arange(len(dataset_A))
-    train_data_B_idx = np.arange(len(dataset_B))
-    np.random.shuffle(train_data_A_idx)
-    np.random.shuffle(train_data_B_idx)
-    train_data_A_idx_subset = train_data_A_idx[:num_samples]
-    train_data_B_idx_subset = train_data_B_idx[:num_samples]
 
-    train_data_A = list()
-    train_data_B = list()
 
-    for idx_A, idx_B in zip(train_data_A_idx_subset, train_data_B_idx_subset):
-        data_A = dataset_A[idx_A]
-        frames_A_total = data_A.shape[1]
-        assert frames_A_total >= n_frames
-        start_A = np.random.randint(frames_A_total - n_frames + 1)
+def sample_train_data(pool_A, pool_B, n_frames=128, max_samples=1000):
+    # Sample proportional to the length
+
+    np.random.shuffle(pool_A)
+    np.random.shuffle(pool_B)
+
+    train_data_A = []
+    train_data_B = []
+
+    while pool_A and pool_B:
+
+        idx_A = np.random.randint(len(pool_A))
+        idx_B = np.random.randint(len(pool_B))
+        data_A, data_B = pool_A[idx_A], pool_B[idx_B]
+        data_A_len, data_B_len = data_A.shape[1], data_B.shape[1]
+
+        if data_A_len < n_frames:
+            del pool_A[idx_A]
+            continue
+
+        if data_B_len < n_frames:
+            del pool_B[idx_B]
+            continue
+
+        start_A = np.random.randint(data_A_len - n_frames + 1)
         end_A = start_A + n_frames
-        train_data_A.append(data_A[:,start_A:end_A])
+        train_data_A.append(data_A[:, start_A:end_A])
+        if start_A >= n_frames:
+            pool_A.append(data_A[:, 0:start_A])
+        if data_A_len - end_A >= n_frames:
+            pool_A.append(data_A[:, end_A:])
+        del pool_A[idx_A]
 
-        data_B = dataset_B[idx_B]
-        frames_B_total = data_B.shape[1]
-        assert frames_B_total >= n_frames
-        start_B = np.random.randint(frames_B_total - n_frames + 1)
+        start_B = np.random.randint(data_B_len - n_frames + 1)
         end_B = start_B + n_frames
-        train_data_B.append(data_B[:,start_B:end_B])
+        train_data_B.append(data_B[:, start_B:end_B])
+        if start_B >= n_frames:
+            pool_B.append(data_B[:, 0:start_B])
+        if data_B_len - end_B >= n_frames:
+            pool_B.append(data_B[:, end_B:])
+        del pool_B[idx_B]
+
+        # reach maximum data length
+        if len(train_data_A) >= max_samples:
+            break
 
     train_data_A = np.array(train_data_A)
     train_data_B = np.array(train_data_B)

@@ -24,8 +24,9 @@ def train(train_A_dir, train_B_dir, model_dir, model_name, random_seed, validati
     n_frames = 128
     lambda_cycle = 10
     lambda_identity = 5
+    max_samples = 1000
 
-    print('Preprocessing Data...')
+    print('Data Preprocessing...')
 
     start_time = time.time()
 
@@ -38,18 +39,15 @@ def train(train_A_dir, train_B_dir, model_dir, model_name, random_seed, validati
     log_f0s_mean_A, log_f0s_std_A = logf0_statistics(f0s_A)
     log_f0s_mean_B, log_f0s_std_B = logf0_statistics(f0s_B)
 
-    print('Log Pitch A')
-    print('Mean: %f, Std: %f' %(log_f0s_mean_A, log_f0s_std_A))
-    print('Log Pitch B')
-    print('Mean: %f, Std: %f' %(log_f0s_mean_B, log_f0s_std_B))
-
+    print('Log Pitch A: Mean %f, Std %f' %(log_f0s_mean_A, log_f0s_std_A))
+    print('Log Pitch B: Mean %f, Std %f' %(log_f0s_mean_B, log_f0s_std_B))
 
     coded_sps_A_transposed = transpose_in_list(lst = coded_sps_A)
     coded_sps_B_transposed = transpose_in_list(lst = coded_sps_B)
 
     coded_sps_A_norm, coded_sps_A_mean, coded_sps_A_std = coded_sps_normalization_fit_transoform(coded_sps = coded_sps_A_transposed)
-    print("Input data fixed.")
     coded_sps_B_norm, coded_sps_B_mean, coded_sps_B_std = coded_sps_normalization_fit_transoform(coded_sps = coded_sps_B_transposed)
+    print("Input data loaded.")
 
     if not os.path.exists(model_dir):
         os.makedirs(model_dir)
@@ -87,7 +85,10 @@ def train(train_A_dir, train_B_dir, model_dir, model_name, random_seed, validati
 
         start_time_epoch = time.time()
 
-        dataset_A, dataset_B = sample_train_data(dataset_A = coded_sps_A_norm, dataset_B = coded_sps_B_norm, n_frames = n_frames)
+        pool_A, pool_B = list(coded_sps_A_norm), list(coded_sps_B_norm)
+        dataset_A, dataset_B = sample_train_data(pool_A=pool_A, pool_B=pool_B, n_frames=n_frames, max_samples=max_samples)
+        print('dataset_A', np.shape(dataset_A), 'dataset_B', np.shape(dataset_B))
+        # dataset_A, dataset_B = sample_train_data_old(dataset_A = coded_sps_A_norm, dataset_B = coded_sps_B_norm, n_frames = n_frames)
 
         n_samples = dataset_A.shape[0]
 
