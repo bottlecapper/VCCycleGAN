@@ -61,7 +61,7 @@ Target: Another pair (TF2 and TM3), 81 sentences for training; 54 sentences for 
 * [PyWorld](https://github.com/JeremyCCHsu/Python-Wrapper-for-World-Vocoder)
 
 (Issue: wrong TensorFlow version --> export PYTHONNOUSERSITE=True)
-
+(Issue: wrong jupyter notebook python kernel --> Install the IPython kernel in different env)
 
 ### Download Dataset
 
