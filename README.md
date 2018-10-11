@@ -90,7 +90,7 @@ $ python download.py --download_dir ./download --data_dir ./data --datasets vcc2
 
 ### Train Model
 
-To have a good conversion quality, the training needs to take at least 1000 epochs. With a TITAN X, it takes 2 days to finish all 400K iterations. 
+To have a good conversion quality, the training needs to take at least 1000 epochs. With a TITAN X, it takes 2 days to finish all 400K iterations. The lr is constant in iteration 0-200K and linearly drop to zero in 200K-400K. 
 
 ```bash
 $ python train.py --help
