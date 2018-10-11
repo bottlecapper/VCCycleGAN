@@ -88,7 +88,7 @@ $ python download.py --download_dir ./download --data_dir ./data --datasets vcc2
 ```
 
 ### Train Model
-
+Data preprocessing takes about 10 mins, depends on the data size. <br />
 To have a good conversion quality, the training needs to take at least 1000 epochs. With a TITAN X, it takes 2 days to finish all 400K iterations. The learning rate is constant in iteration 0-200K and linearly drop to zero in 200K-400K. 
 
 ```bash
