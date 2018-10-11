@@ -22,8 +22,7 @@ When applied for voice conversion, gated linear units (GLUs) are used as activat
 3. Aperiodicities (APs), directly used without modification
 
 ### Dataset: 
-[Voice Conversion Challenge 2016](https://datashare.is.ed.ac.uk/handle/10283/2211)
-
+[Voice Conversion Challenge 2016](https://datashare.is.ed.ac.uk/handle/10283/2211) <br />
 Professional US English speakers, five females and five males,  each has 216 short sentences (~13 minutes, need manual segmentation)
 Aource: A pair of female (SF1) and male (SM1), 81 sentences for training
 Target: Another pair (TF2 and TM3), 81 sentences for training; 54 sentences for evaluation
@@ -60,7 +59,7 @@ Target: Another pair (TF2 and TM3), 81 sentences for training; 54 sentences for 
 * FFmpeg 4.0
 * [PyWorld](https://github.com/JeremyCCHsu/Python-Wrapper-for-World-Vocoder)
 
-(Issue: wrong TensorFlow version --> export PYTHONNOUSERSITE=True)
+(Issue: wrong TensorFlow version --> export PYTHONNOUSERSITE=True) <br />
 (Issue: wrong jupyter notebook python kernel --> Install the IPython kernel in different env)
 
 ### Download Dataset
@@ -139,7 +138,7 @@ $ python train.py --train_A_dir ./data/vcc2016_training/SF1 --train_B_dir ./data
     <img src = "./train_log/tensorboard20181008.png" width="100%">
 </p>
 
-We can listen to the converted audio in folder ``validation_output``, and compare to the original files in ``validation_A_dir`` and ``validation_A_dir``. 
+We can listen to the converted audio in folder ``validation_output``, and compare to the original files in ``validation_A_dir`` and ``validation_B_dir``. 
 
 
 ### Voice Conversion
