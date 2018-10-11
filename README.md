@@ -130,7 +130,7 @@ optional arguments:
 For example, to train CycleGAN model for voice conversion between ``SF1`` and ``TM1``:
 
 ```bash
-$ python train.py --train_A_dir ./data/vcc2016_training/SF1 --train_B_dir ./data/vcc2016_training/TM1 --model_dir ./model/sf1_tm1 --model_name sf1_tm1.ckpt --random_seed 0 --validation_A_dir ./data/evaluation_all/SF1 --validation_B_dir ./data/evaluation_all/TM1 --output_dir ./validation_output --tensorboard_log_dir ./log
+$ python train.py --train_A_dir /media/jg/H/data/VCC2016/vcc2016_training/SF1 --train_B_dir /media/jg/H/data/VCC2016/vcc2016_training/TM1 --model_dir ./model/sf1_tm1 --model_name sf1_tm1.ckpt --random_seed 0 --validation_A_dir /media/jg/H/data/VCC2016/evaluation_all/SF1 --validation_B_dir /media/jg/H/data/VCC2016/evaluation_all/TM1 --output_dir ./validation_output --tensorboard_log_dir ./log
 ```
 
 
