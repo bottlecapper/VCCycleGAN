@@ -1,0 +1,10 @@
+
+*.wav
+*.meta
+*.index
+*.data-00000-of-00001
+*.npz
+*.JG
+20181011/model/sf1_tm1/checkpoint
+20181008/model/sf1_tm1/checkpoint
+*.zip
